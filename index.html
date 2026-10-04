@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17131b">
+<meta name="description" content="EasyChat — simple, private, connected.">
+<link rel="icon" type="image/png" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<title>EasyChat</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<main id="authView" class="auth-shell hidden">
+  <section class="auth-card">
+    <div class="brand brand-auth">
+      <img class="brand-logo" src="assets/easychat-logo.png" alt="EasyChat">
+      <div><h1>EasyChat</h1><p>Simple. Private. Connected.</p></div>
+    </div>
+
+    <div id="configWarning" class="config-warning hidden">
+      <strong>Supabase is not configured.</strong>
+      <span>Open <code>supabase-config.js</code> and add your project URL and publishable key.</span>
+    </div>
+
+    <div class="auth-mode">
+      <button class="mode-btn active" type="button" data-mode="signin">Sign in</button>
+      <button class="mode-btn" type="button" data-mode="signup">Create account</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" type="button" data-auth="email">Email</button>
+      <button class="tab" type="button" data-auth="phone">Phone</button>
+    </div>
+
+    <form id="emailForm" class="auth-form">
+      <label>Email
+        <input id="email" type="email" autocomplete="email" required placeholder="you@example.com">
+      </label>
+      <label>Password
+        <input id="password" type="password" autocomplete="current-password" minlength="6" required placeholder="••••••••">
+      </label>
+
+      <div id="signupFields" class="signup-fields hidden">
+        <label>Full name
+          <input id="signupName" type="text" autocomplete="name" placeholder="Your name">
+        </label>
+        <label>Confirm password
+          <input id="passwordConfirm" type="password" autocomplete="new-password" minlength="6" placeholder="••••••••">
+        </label>
+      </div>
+
+      <button id="emailSubmit" class="primary auth-submit" type="submit">Sign in</button>
+      <button id="forgotPassword" class="link-btn" type="button">Forgot password?</button>
+    </form>
+
+    <form id="phoneForm" class="auth-form hidden">
+      <div id="phoneStep">
+        <label>Phone number
+          <input id="phone" type="tel" autocomplete="tel" placeholder="+212 6 00 00 00 00">
+        </label>
+        <button id="sendOtp" class="primary auth-submit" type="button">Send code</button>
+      </div>
+      <div id="otpStep" class="hidden">
+        <label>Verification code
+          <input id="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="123456">
+        </label>
+        <button id="verifyOtp" class="primary auth-submit" type="button">Verify code</button>
+        <button id="backPhone" class="secondary" type="button">Change number</button>
+      </div>
+    </form>
+
+    <p class="auth-note">Your Supabase publishable key is safe for the browser. Never put a service or secret key here.</p>
+  </section>
+</main>
+
+<main id="appView" class="app-shell hidden">
+  <aside class="sidebar">
+    <header class="side-head">
+      <div class="brand small">
+        <img class="brand-logo" src="assets/easychat-logo.png" alt="EasyChat">
+        <strong>EasyChat</strong>
+      </div>
+      <div class="head-actions"><button id="newChatBtn" title="New chat" type="button">＋</button><button id="profileBtn" title="Profile" type="button">●</button></div>
+    </header>
+    <div class="me-strip" id="meStrip"></div>
+    <div class="search"><input id="searchInput" placeholder="Search chats"></div>
+    <div id="chatList" class="chat-list"></div>
+    <div class="side-bottom">
+      <button id="groupBtn" class="secondary full" type="button">Create group</button>
+      <button id="notificationsBtn" class="secondary full" type="button">Notifications <span id="notifBadge" class="badge hidden">0</span></button>
+      <button id="signOutBtn" class="ghost full" type="button">Sign out</button>
+    </div>
+  </aside>
+
+  <section class="conversation">
+    <header id="conversationHead" class="conversation-head empty">
+      <button class="mobile-back" id="mobileBack" type="button">‹</button>
+      <div class="avatar" id="headAvatar">?</div>
+      <div class="head-info"><strong id="headName">Select a chat</strong><span id="headStatus"></span></div>
+      <div class="head-actions right"><button id="chatInfoBtn" title="Chat info" class="hidden" type="button">⋮</button></div>
+    </header>
+    <div id="typingBar" class="typing-bar"></div>
+    <div id="messages" class="messages">
+      <div class="empty-state"><div class="empty-icon">💬</div><h2>Welcome to EasyChat</h2><p>Select a chat or start a new conversation.</p></div>
+    </div>
+    <div id="replyBar" class="reply-bar hidden"></div>
+    <form id="messageForm" class="composer hidden">
+      <input id="fileInput" type="file" hidden accept="image/*,.pdf,.doc,.docx,.txt,.zip">
+      <button id="attachBtn" class="icon-btn" type="button" title="Attach">＋</button>
+      <input id="messageInput" autocomplete="off" placeholder="Write a message…">
+      <button class="send" type="submit">➤</button>
+    </form>
+  </section>
+</main>
+
+<dialog id="modal"><div class="modal-card"><button class="modal-close" id="modalClose" type="button">×</button><div id="modalContent"></div></div></dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

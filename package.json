@@ -1,0 +1,11 @@
+{
+  "name": "easychat-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:netlify": "node scripts/build.mjs",
+    "build:vercel": "node scripts/build.mjs"
+  }
+}
